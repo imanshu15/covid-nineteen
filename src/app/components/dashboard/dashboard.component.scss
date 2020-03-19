@@ -1,0 +1,14 @@
+table {
+  display: block;
+  height: 500px;
+  overflow-y: scroll;
+}
+
+.card .table td, .card .table th {
+    padding-left: 1.3rem !important;
+}
+
+.header-custom{
+  padding-bottom: 10px;
+  padding-left: 20px;
+}

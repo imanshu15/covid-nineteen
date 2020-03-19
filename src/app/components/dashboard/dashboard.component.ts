@@ -5,9 +5,12 @@ import Chart from 'chart.js';
 import {
   chartOptions,
   parseOptions,
-  chartExample1,
-  chartExample2
+  chart1,
+  chart2
 } from '../../variables/charts';
+import { DataService } from 'src/app/services/data.service';
+import { DataModel, BriefModel, TimeSeries, LocalData } from 'src/app/models/data-models';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-dashboard',
@@ -15,50 +18,141 @@ import {
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
-  public datasets: any;
-  public data: any;
-  public salesChart;
-  public clicked: boolean = true;
-  public clicked1: boolean = false;
+  private dataModel: DataModel;
 
-  constructor() { }
+  thumbnail: any;
+  public lineChartObj;
+  public pieChart: any;
+  public lineChart: any;
+  private chartLabels: string[] = [];
+  private chartValues: number[] = [];
+  private hospitalData: any[] = [];
+
+  constructor(private dataService: DataService, private sanitizer: DomSanitizer) {
+    this.dataModel = new DataModel();
+  }
 
   ngOnInit() {
 
-    this.datasets = [
-      [0, 20, 10, 30, 15, 40, 20, 60, 60],
-      [0, 20, 5, 25, 10, 30, 15, 40, 40]
-    ];
-    this.data = this.datasets[0];
-
-
-    var chartOrders = document.getElementById('chart-orders');
-
+    this.loadData();
     parseOptions(Chart, chartOptions());
 
 
-    var ordersChart = new Chart(chartOrders, {
-      type: 'bar',
-      options: chartExample2.options,
-      data: chartExample2.data
+    this.lineChart = document.getElementById('chart-1');
+    this.lineChartObj = new Chart(this.lineChart, {	type: 'line',	options: chart1.options,	data: chart1.data});
+  }
+
+  private loadData() {
+    this.dataService.getbrief().then(a => {
+      if (a) {
+        this.dataModel.globalBrief = a;
+      }
     });
 
-    var chartSales = document.getElementById('chart-sales');
+    this.dataService.getLatest('LK', 'LKA').then(a => {
+      if (a) {
+        this.dataModel.localBrief = a[0];
+      }
+    });
 
-    this.salesChart = new Chart(chartSales, {
-			type: 'line',
-			options: chartExample1.options,
-			data: chartExample1.data
-		});
+    this.dataService.getTimeSeries('LK', 'LKA').then(a => {
+      this.dataModel.timeSeries = [];
+      const jsonData = a[0].timeseries;
+      let index = 0;
+      // tslint:disable-next-line: forin
+      for (const i in jsonData) {
+        // tslint:disable-next-line: one-variable-per-declaration
+        if (index >= 39) {
+          const date = i.split('/');
+          // tslint:disable-next-line: max-line-length
+          const newDate = (date[0].length === 1 ? '0' + date[0] : date[0]) + '/'  + (date[1].length === 1 ? '0' + date[1] : date[1]) + '/' + '20' + date[2];
+          const temp = new TimeSeries();
+          temp.date = new Date(newDate);
+          temp.brief = jsonData[i];
+          this.dataModel.timeSeries.push(temp);
+
+          this.chartLabels.push(i);
+          this.chartValues.push(temp.brief.confirmed);
+        }
+        index++;
+      }
+
+      this.dataModel.timeSeries = this.dataModel.timeSeries;
+
+      this.loadLineCharts();
+    });
+
+    this.dataService.getStatistics().then(a => {
+      if (a && a.success) {
+        this.dataModel.localData = a.data;
+        this.hospitalData = a.data.hospital_data;
+        // tslint:disable-next-line: max-line-length
+        this.dataModel.localData.recoveredPercentage = (this.dataModel.localData.local_recovered / this.dataModel.localData.local_total_cases ) * 100;
+      }
+      console.log(this.dataModel.localData);
+      this.loadPieCharts();
+    });
+
+    this.dataService.getRapidData().then(a => {
+      if (a) {
+        this.dataModel.rapidBrief = a;
+        // tslint:disable-next-line: max-line-length
+        this.dataModel.rapidBrief.recoveredPercentage = (+this.dataModel.rapidBrief.total_recovered.replace(',', '') / +this.dataModel.rapidBrief.total_cases.replace(',', '')) * 100;
+      }
+    });
+
+    this.dataService.getImage().then(a => {
+      const reader = new FileReader();
+      reader.readAsDataURL(a);
+      // tslint:disable-next-line: only-arrow-functions
+      reader.onloadend = function() {
+         const objectURL = reader.result;
+         this.thumbnail = this.sanitizer.bypassSecurityTrustUrl(objectURL);
+      }.bind(this);
+
+      console.log('Image', a);
+    });
   }
 
+  public loadLineCharts() {
+    const chart1Data = {
+      labels: this.chartLabels,
+      datasets: [{
+        label: 'Confirmed',
+        data: this.chartValues
+      }]
+    };
 
+    this.lineChartObj = new Chart(this.lineChart, {	type: 'line',	options: chart1.options,	data: chart1Data});
 
+    }
 
+    public loadPieCharts() {
+    const data: number[] = [];
+    data.push(this.dataModel.localData.local_total_cases);
+    data.push(this.dataModel.localData.local_deaths);
+    data.push(this.dataModel.localData.local_recovered);
 
-  public updateOptions() {
-    this.salesChart.data.datasets[0].data = this.data;
-    this.salesChart.update();
-  }
-
+    this.pieChart = new Chart('chart-2', {
+          type: 'pie',
+          data: {
+            labels: ['Cases', 'Deaths', 'Recovered'],
+            datasets: [
+              {
+                data,
+                backgroundColor: ['rgba(245, 54, 92)', 'rgba(251, 99, 64)', 'rgba(	255, 214, 0)'],
+                fill: false
+              },
+            ]
+          },
+          options: {
+            legend: {
+              display: true
+            },
+            tooltips: {
+              enabled: true
+            }
+          }
+        });
+    }
 }

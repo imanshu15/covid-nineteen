@@ -25,11 +25,26 @@ export class HttpService {
    */
   get headers() {
     return new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Accept': 'application/json'
+
     });
   }
 
+  get headers2() {
+    return new HttpHeaders({
+      'x-rapidapi-host': `${environment.rapid_host}`,
+      'x-rapidapi-key': `${environment.rapid_key}`
+    });
+  }
+
+  public setBaseUrl(param: string = '') {
+    if (param === 'Local') {
+      this.api_url = `${environment.api_sl_url}`;
+    } else if(param === 'Rapid') {
+      this.api_url = `${environment.api_rapid_url}`;
+    } else {
+      this.api_url = `${environment.api_base_url}`;
+    }
+  }
 
   private handleError(error: HttpErrorResponse, handler: ErrorMessageHandler) {
     console.error(error);
@@ -46,6 +61,13 @@ export class HttpService {
     );
   }
 
+  getRapid(path: string): Observable<any> {
+    return this.http
+      .get<any>(`${this.api_url}${path}`, { headers: this.headers2 })
+      .pipe(
+        catchError(err => this.handleError(err, this.errorHandler))
+      );
+  }
 
   get(path: string): Observable<any> {
     return this.http
@@ -96,8 +118,8 @@ export class HttpService {
       );
   }
 
-  getFile(path: string, request: any): Observable<Blob> {
+  getRapidFile(path: string): Observable<Blob> {
     return this.http
-      .post(`${this.api_url}${path}`, request,  {responseType: 'blob'});
+      .get(`${this.api_url}${path}`,  {headers: this.headers2, responseType: 'blob'}, );
   }
 }

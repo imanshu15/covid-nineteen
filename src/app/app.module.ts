@@ -7,6 +7,8 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { ErrorMessageHandler } from './helpers/error-handler';
 import { HttpService } from './services/http.service';
+import { DataService } from './services/data.service';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -16,9 +18,10 @@ import { HttpService } from './services/http.service';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
-  providers: [ErrorMessageHandler, HttpService],
+  providers: [ErrorMessageHandler, HttpService, DataService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

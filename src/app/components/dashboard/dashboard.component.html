@@ -1,88 +1,131 @@
-<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
+<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8 " style="padding-top: 2rem !important;">
     <div class="container-fluid">
+      <div class="row"><div class="col-xl-5 col-lg-4"></div> <h1 class="h1 mb-0 text-white text-uppercase header-custom">SRI LANKA COVID - 19 STATS</h1></div>
       <div class="header-body">
         <!-- Card stats -->
         <div class="row">
-          <div class="col-xl-3 col-lg-6">
+          <div class="col-xl-2 col-lg-4">
             <div class="card card-stats mb-4 mb-xl-0">
               <div class="card-body">
                 <div class="row">
                   <div class="col">
-                    <h5 class="card-title text-uppercase text-muted mb-0">Traffic</h5>
-                    <span class="h2 font-weight-bold mb-0">350,897</span>
+                    <h5 class="card-title text-uppercase text-muted mb-0">Total Cases</h5>
+                    <span class="h2 font-weight-bold mb-0">{{dataModel.localData?.local_total_cases | number:'':'en' }}</span>
                   </div>
                   <div class="col-auto">
                     <div class="icon icon-shape bg-danger text-white rounded-circle shadow">
-                      <i class="fas fa-chart-bar"></i>
+                      <i class="fas fa-user-md"></i>
                     </div>
                   </div>
                 </div>
                 <p class="mt-3 mb-0 text-muted text-sm">
-                  <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> 3.48%</span>
-                  <span class="text-nowrap">Since last month</span>
+                  <span class="text-danger mr-2">{{dataModel.localData?.local_new_cases | number:'':'en' }}</span>
+                  <span class="text-nowrap">New Cases </span>
                 </p>
               </div>
             </div>
           </div>
-          <div class="col-xl-3 col-lg-6">
+          <div class="col-xl-2 col-lg-4">
             <div class="card card-stats mb-4 mb-xl-0">
               <div class="card-body">
                 <div class="row">
                   <div class="col">
-                    <h5 class="card-title text-uppercase text-muted mb-0">New users</h5>
-                    <span class="h2 font-weight-bold mb-0">2,356</span>
+                    <h5 class="card-title text-uppercase text-muted mb-0">Total Deaths</h5>
+                    <span class="h2 font-weight-bold mb-0">{{dataModel.localData?.local_deaths | number:'':'en' }}</span>
                   </div>
                   <div class="col-auto">
                     <div class="icon icon-shape bg-warning text-white rounded-circle shadow">
-                      <i class="fas fa-chart-pie"></i>
+                      <i class="fas fa-ambulance"></i>
                     </div>
                   </div>
                 </div>
                 <p class="mt-3 mb-0 text-muted text-sm">
-                  <span class="text-danger mr-2"><i class="fas fa-arrow-down"></i> 3.48%</span>
-                  <span class="text-nowrap">Since last week</span>
+                  <span class="text-danger mr-2"> {{dataModel.localData?.local_new_deaths | number:'':'en' }}</span>
+                  <span class="text-nowrap">New Deaths</span>
                 </p>
               </div>
             </div>
           </div>
-          <div class="col-xl-3 col-lg-6">
+          <div class="col-xl-2 col-lg-4">
             <div class="card card-stats mb-4 mb-xl-0">
               <div class="card-body">
                 <div class="row">
                   <div class="col">
-                    <h5 class="card-title text-uppercase text-muted mb-0">Sales</h5>
-                    <span class="h2 font-weight-bold mb-0">924</span>
+                    <h5 class="card-title text-uppercase text-muted mb-0">Recovered</h5>
+                    <span class="h2 font-weight-bold mb-0">{{dataModel.localData?.local_recovered | number:'':'en' }}</span>
                   </div>
                   <div class="col-auto">
                     <div class="icon icon-shape bg-yellow text-white rounded-circle shadow">
-                      <i class="fas fa-users"></i>
+                      <i class="fas fa-heart"></i>
                     </div>
                   </div>
                 </div>
                 <p class="mt-3 mb-0 text-muted text-sm">
-                  <span class="text-warning mr-2"><i class="fas fa-arrow-down"></i> 1.10%</span>
-                  <span class="text-nowrap">Since yesterday</span>
+                  <span class="text-danger mr-2"> {{ dataModel.localData?.recoveredPercentage | number : '1.2-2' }}%</span>
+                  <span class="text-nowrap">Recovered</span>
                 </p>
               </div>
             </div>
           </div>
-          <div class="col-xl-3 col-lg-6">
+          <div class="col-xl-2 col-lg-4">
             <div class="card card-stats mb-4 mb-xl-0">
               <div class="card-body">
                 <div class="row">
                   <div class="col">
-                    <h5 class="card-title text-uppercase text-muted mb-0">Performance</h5>
-                    <span class="h2 font-weight-bold mb-0">49,65%</span>
+                    <h5 class="card-title text-uppercase text-muted mb-0">Global Total Cases</h5>
+                    <span class="h2 font-weight-bold mb-0"> {{ dataModel.rapidBrief?.total_cases }} </span>
                   </div>
                   <div class="col-auto">
                     <div class="icon icon-shape bg-info text-white rounded-circle shadow">
-                      <i class="fas fa-percent"></i>
+                      <i class="fas fa-atom"></i>
                     </div>
                   </div>
                 </div>
                 <p class="mt-3 mb-0 text-muted text-sm">
-                  <span class="text-success mr-2"><i class="fas fa-arrow-up"></i> 12%</span>
-                  <span class="text-nowrap">Since last month</span>
+                  <span class="text-danger mr-2"> {{ dataModel.rapidBrief?.new_cases }} </span>
+                  <span class="text-nowrap">New Cases</span>
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-2 col-lg-4">
+            <div class="card card-stats mb-4 mb-xl-0">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col">
+                    <h5 class="card-title text-uppercase text-muted mb-0">Global Total Deaths</h5>
+                    <span class="h2 font-weight-bold mb-0"> {{ dataModel.rapidBrief?.total_deaths }} </span>
+                  </div>
+                  <div class="col-auto">
+                    <div class="icon icon-shape bg-info text-white rounded-circle shadow">
+                      <i class="fas fa-atom"></i>
+                    </div>
+                  </div>
+                </div>
+                <p class="mt-3 mb-0 text-muted text-sm">
+                  <span class="text-danger mr-2"> {{ dataModel.rapidBrief?.new_deaths }} </span>
+                  <span class="text-nowrap">New Deaths</span>
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-2 col-lg-4">
+            <div class="card card-stats mb-4 mb-xl-0">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col">
+                    <h5 class="card-title text-uppercase text-muted mb-0">Total Recovered</h5>
+                    <span class="h2 font-weight-bold mb-0"> {{ dataModel.rapidBrief?.total_recovered }} </span>
+                  </div>
+                  <div class="col-auto">
+                    <div class="icon icon-shape bg-info text-white rounded-circle shadow">
+                      <i class="fas fa-atom"></i>
+                    </div>
+                  </div>
+                </div>
+                <p class="mt-3 mb-0 text-muted text-sm">
+                  <span class="text-danger mr-2">{{ dataModel.rapidBrief?.recoveredPercentage  | number : '1.2-2' }}%</span>
+                  <span class="text-nowrap">Recovered</span>
                 </p>
               </div>
             </div>
@@ -99,23 +142,6 @@
             <div class="row align-items-center">
               <div class="col">
                 <h6 class="text-uppercase text-light ls-1 mb-1">Overview</h6>
-                <h2 class="text-white mb-0">Sales value</h2>
-              </div>
-              <div class="col">
-                <ul class="nav nav-pills justify-content-end">
-                  <li class="nav-item mr-2 mr-md-0" data-toggle="chart" data-target="#chart-sales"  (click)="data=datasets[0];updateOptions()">
-                    <a href="javascript:void(0)" class="nav-link py-2 px-3" [ngClass]="{'active':clicked===true}" data-toggle="tab" (click)="clicked=true;clicked1=false">
-                      <span class="d-none d-md-block">Month</span>
-                      <span class="d-md-none">M</span>
-                    </a>
-                  </li>
-                  <li class="nav-item" data-toggle="chart" data-target="#chart-sales"  (click)="data=datasets[1];updateOptions()">
-                    <a href="javascript:void(0)" class="nav-link py-2 px-3" [ngClass]="{'active':clicked1===true}" data-toggle="tab" (click)="clicked=false;clicked1=true">
-                      <span class="d-none d-md-block">Week</span>
-                      <span class="d-md-none">W</span>
-                    </a>
-                  </li>
-                </ul>
               </div>
             </div>
           </div>
@@ -123,7 +149,7 @@
             <!-- Chart -->
             <div class="chart">
               <!-- Chart wrapper -->
-              <canvas id="chart-sales" class="chart-canvas"></canvas>
+              <canvas id="chart-1" class="chart-canvas"></canvas>
             </div>
           </div>
         </div>
@@ -133,15 +159,14 @@
           <div class="card-header bg-transparent">
             <div class="row align-items-center">
               <div class="col">
-                <h6 class="text-uppercase text-muted ls-1 mb-1">Performance</h6>
-                <h2 class="mb-0">Total orders</h2>
+                <h6 class="text-uppercase text-muted ls-1 mb-1">Total Cases</h6>
               </div>
             </div>
           </div>
           <div class="card-body">
             <!-- Chart -->
             <div class="chart">
-              <canvas id="chart-orders" class="chart-canvas"></canvas>
+              <canvas id="chart-2" ></canvas>
             </div>
           </div>
         </div>
@@ -149,97 +174,50 @@
     </div>
     <div class="row mt-5">
       <div class="col-xl-8 mb-5 mb-xl-0">
-        <div class="card shadow">
-          <div class="card-header border-0">
+        <div class="card bg-default shadow">
+          <div class="card-header bg-transparent border-0">
             <div class="row align-items-center">
               <div class="col">
-                <h3 class="mb-0">Page visits</h3>
-              </div>
-              <div class="col text-right">
-                <a href="#!" class="btn btn-sm btn-primary">See all</a>
+                <h3 class="mb-0">Hospital Data</h3>
               </div>
             </div>
           </div>
           <div class="table-responsive">
             <!-- Projects table -->
-            <table class="table align-items-center table-flush">
-              <thead class="thead-light">
+            <table class="table align-items-center table-dark table-flush">
+              <thead class="thead-dark">
                 <tr>
-                  <th scope="col">Page name</th>
-                  <th scope="col">Visitors</th>
-                  <th scope="col">Unique users</th>
-                  <th scope="col">Bounce rate</th>
+                  <th scope="col">Hospitals</th>
+                  <th scope="col">Locals Tested</th>
+                  <th scope="col">Foreigners Tested</th>
+                  <th scope="col">Total Tested</th>
+                  <th scope="col">Locals Admitted</th>
+                  <th scope="col">Foreigners Admitted</th>
+                  <th scope="col">Total Admitted</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
+                <tr *ngFor="let data of hospitalData">
                   <th scope="row">
-                    /argon/
+                    {{data.hospital.name}}
                   </th>
-                  <td>
-                    4,569
+                  <td style="width: 1px !important;">
+                    {{data.cumulative_local}}
                   </td>
                   <td>
-                    340
+                    {{data.cumulative_foreign}}
                   </td>
                   <td>
-                    <i class="fas fa-arrow-up text-success mr-3"></i> 46,53%
-                  </td>
-                </tr>
-                <tr>
-                  <th scope="row">
-                    /argon/index.html
-                  </th>
-                  <td>
-                    3,985
+                    {{data.cumulative_total}}
                   </td>
                   <td>
-                    319
+                    {{data.treatment_local}}
                   </td>
                   <td>
-                    <i class="fas fa-arrow-down text-warning mr-3"></i> 46,53%
-                  </td>
-                </tr>
-                <tr>
-                  <th scope="row">
-                    /argon/charts.html
-                  </th>
-                  <td>
-                    3,513
+                    {{data.treatment_foreign}}
                   </td>
                   <td>
-                    294
-                  </td>
-                  <td>
-                    <i class="fas fa-arrow-down text-warning mr-3"></i> 36,49%
-                  </td>
-                </tr>
-                <tr>
-                  <th scope="row">
-                    /argon/tables.html
-                  </th>
-                  <td>
-                    2,050
-                  </td>
-                  <td>
-                    147
-                  </td>
-                  <td>
-                    <i class="fas fa-arrow-up text-success mr-3"></i> 50,87%
-                  </td>
-                </tr>
-                <tr>
-                  <th scope="row">
-                    /argon/profile.html
-                  </th>
-                  <td>
-                    1,795
-                  </td>
-                  <td>
-                    190
-                  </td>
-                  <td>
-                    <i class="fas fa-arrow-down text-danger mr-3"></i> 46,53%
+                    {{data.treatment_total}}
                   </td>
                 </tr>
               </tbody>
@@ -247,121 +225,52 @@
           </div>
         </div>
       </div>
+
       <div class="col-xl-4">
-        <div class="card shadow">
-          <div class="card-header border-0">
-            <div class="row align-items-center">
-              <div class="col">
-                <h3 class="mb-0">Social traffic</h3>
-              </div>
-              <div class="col text-right">
-                <a href="#!" class="btn btn-sm btn-primary">See all</a>
-              </div>
+        <div class="card card-profile shadow">
+
+          <div class="card-body pt-md-4">
+            <div class="row justify-content-center">
+        
+              <!-- AddToAny BEGIN -->
+              <div class="a2a_kit a2a_kit_size_32 a2a_default_style">
+                <a class="a2a_button_facebook"></a>
+                <a class="a2a_button_email"></a>
+                <a class="a2a_button_twitter"></a>
+                <a class="a2a_button_linkedin"></a>
+                <a class="a2a_button_whatsapp"></a>
+                <a class="a2a_button_skype"></a>
+                <a class="a2a_button_facebook_messenger"></a>
+                <a class="a2a_button_copy_link"></a>
+                </div>
+                <!-- AddToAny END -->
+
             </div>
-          </div>
-          <div class="table-responsive">
-            <!-- Projects table -->
-            <table class="table align-items-center table-flush">
-              <thead class="thead-light">
-                <tr>
-                  <th scope="col">Referral</th>
-                  <th scope="col">Visitors</th>
-                  <th scope="col"></th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <th scope="row">
-                    Facebook
-                  </th>
-                  <td>
-                    1,480
-                  </td>
-                  <td>
-                    <div class="d-flex align-items-center">
-                      <span class="mr-2">60%</span>
-                      <div>
-                        <div class="progress">
-                          <div class="progress-bar bg-gradient-danger" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;"></div>
-                        </div>
-                      </div>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <th scope="row">
-                    Facebook
-                  </th>
-                  <td>
-                    5,480
-                  </td>
-                  <td>
-                    <div class="d-flex align-items-center">
-                      <span class="mr-2">70%</span>
-                      <div>
-                        <div class="progress">
-                          <div class="progress-bar bg-gradient-success" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width: 70%;"></div>
-                        </div>
-                      </div>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <th scope="row">
-                    Google
-                  </th>
-                  <td>
-                    4,807
-                  </td>
-                  <td>
-                    <div class="d-flex align-items-center">
-                      <span class="mr-2">80%</span>
-                      <div>
-                        <div class="progress">
-                          <div class="progress-bar bg-gradient-primary" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%;"></div>
-                        </div>
-                      </div>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <th scope="row">
-                    Instagram
-                  </th>
-                  <td>
-                    3,678
-                  </td>
-                  <td>
-                    <div class="d-flex align-items-center">
-                      <span class="mr-2">75%</span>
-                      <div>
-                        <div class="progress">
-                          <div class="progress-bar bg-gradient-info" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%;"></div>
-                        </div>
-                      </div>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <th scope="row">
-                    twitter
-                  </th>
-                  <td>
-                    2,645
-                  </td>
-                  <td>
-                    <div class="d-flex align-items-center">
-                      <span class="mr-2">30%</span>
-                      <div>
-                        <div class="progress">
-                          <div class="progress-bar bg-gradient-warning" role="progressbar" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100" style="width: 30%;"></div>
-                        </div>
-                      </div>
-                    </div>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+
+            <div class="text-center">
+              <h3>
+                <span class="font-weight-light">SRI LANKA COVID - 19 STATS</span>
+              </h3>
+              <div class="h4 font-weight-300">
+                <a href="https://github.com/imanshu15/covid-nineteen"><i class="fas fa-link"></i> Github Repo </a>
+              </div>
+             
+              <div class="h4 mt-4">
+                Sri Lankan data taken from <a href="http://hpb.health.gov.lk/"><i class="fas fa-plus-square"></i>  HEALTH PROMOTION BUREAU </a>
+              </div>
+              <div class="h5 font-weight-300">
+                Updated On {{this.dataModel.localData?.update_date_time}}
+              </div>
+              <div class="h5 mt-4">
+                Global data taken from <a href="https://rapidapi.com/astsiatsko/api/coronavirus-monitor"> <i class="fas fa-server"></i> Rapid API Corona Virus Monitor </a>
+              </div>
+              <div class="h5 ">
+                SL Timeseries taken from <a href="https://github.com/Laeyoung/COVID-19-API"> <i class="fas fa-server"></i> COVID-19-API </a>
+              </div>
+              <hr class="my-4" />
+              <p>For more information please visit <a href="http://hpb.health.gov.lk/covid-19"> here </a></p>
+              <p> <span class="font-weight-bold text-danger"><i class="fas fa-phone-volume"></i> 24 Hour Helpline: 117 </span></p>
+            </div>
           </div>
         </div>
       </div>
