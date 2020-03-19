@@ -18,15 +18,15 @@ import { DomSanitizer } from '@angular/platform-browser';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
-  private dataModel: DataModel;
+  public dataModel: DataModel;
 
   thumbnail: any;
   public lineChartObj;
   public pieChart: any;
   public lineChart: any;
-  private chartLabels: string[] = [];
-  private chartValues: number[] = [];
-  private hospitalData: any[] = [];
+  public chartLabels: string[] = [];
+  public chartValues: number[] = [];
+  public hospitalData: any[] = [];
 
   constructor(private dataService: DataService, private sanitizer: DomSanitizer) {
     this.dataModel = new DataModel();
